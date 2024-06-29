@@ -19,7 +19,7 @@ app.use('/api/salary', salaryRoute)
 // ** test get request
 app.get('/', async (req, res) => {
   res.status(200).send({
-    message: 'Calculate Gross Salary',
+    message: 'Calculate Gross from Net ',
   })
 })
 
