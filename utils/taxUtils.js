@@ -1,11 +1,11 @@
 // ** CALCULATE EMPLOYEE PENSION
 // ** Since tier1 is 0 for employee pension it is not included
-const calculatePension = (basicSalary) => {
+const calculatePension = (taxableIncome) => {
   // ** Tier2 = 5.5%
-  const tier2 = (basicSalary * 5.5) / 100
+  const tier2 = (taxableIncome * 5.5) / 100
 
   // ** Tier3 = 5%
-  const tier3 = (basicSalary * 5) / 100
+  const tier3 = (taxableIncome * 5) / 100
 
   // ** Total Employess Pension
   const total = tier2 + tier3
@@ -15,8 +15,8 @@ const calculatePension = (basicSalary) => {
 
 // ** CALCULATE TAXABLE INCOME
 // ** Employee Pension is taken from the basic Salary before allowances are added to be taxed
-const calculateTaxableIncome = (basicSalary, allowances, employeePension) => {
-  return basicSalary - employeePension + allowances
+const calculateTaxableIncome = (basicSalary, allowances) => {
+  return basicSalary + allowances
 }
 
 // ** CALCULATE PAYETAX
@@ -86,13 +86,16 @@ const findBasicSalary = (netSalary, allowances) => {
     // ** TI = B - 0.105B + A
     // ** TI = B(1-0.105) + A
     // ** TI = 0.895B + A
-    let taxableIncome = 0.895 * basicSalary + allowances
+    let taxableIncome = basicSalary + allowances
 
     // ** PayeTax
     let tax = calculatePAYETax(taxableIncome)
 
+    // ** Pension
+    let employeePension = calculatePension(taxableIncome)
+
     // ** Calculate Actual Net Salary
-    let calculatedNetSalary = 0.895 * basicSalary + allowances - tax
+    let calculatedNetSalary = basicSalary + allowances - tax - employeePension
 
     // ** Return the basic salary when the calculated net salary is close enough to the provided net salary
     if (Math.abs(calculatedNetSalary - netSalary) < epsilon) {

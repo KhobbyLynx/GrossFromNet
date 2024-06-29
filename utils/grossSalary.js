@@ -13,27 +13,21 @@ const calculateGrossSalary = (desiredNetSalary, allowances) => {
 
   // ** If basic Salary is defined
   if (basicSalary) {
-    // ** Calculate Employee Pension
-    let employeePension = calculatePension(basicSalary)
-
     // ** Calculate Taxable Income
-    let taxableIncome = calculateTaxableIncome(
-      basicSalary,
-      allowances,
-      employeePension
-    )
+    let taxableIncome = calculateTaxableIncome(basicSalary, allowances)
+
+    // ** Calculate Employee Pension
+    let employeePension = calculatePension(taxableIncome)
 
     // ** Calculate Tax
     let payeTax = calculatePAYETax(taxableIncome)
 
     // ** Calculate Gross Salary
-    let grossSalary = formatNumber(
-      basicSalary + allowances + employeePension + payeTax
-    )
+    let grossSalary = formatNumber(basicSalary + allowances)
 
     // ** Calculate Actual Net Salary Based on the Calculated Basic Salary
     let netSalary = formatNumber(
-      basicSalary - employeePension + allowances - payeTax
+      basicSalary + allowances - employeePension - payeTax
     )
 
     return {

@@ -5,7 +5,7 @@ const formatNumber = (num) => {
 
   // ** Check if num is a valid number
   if (isNaN(num)) {
-    throw new TypeError('Input is not a valid number')
+    throw new TypeError('Number is not valid')
   }
 
   // ** Format the number to two decimal places and add commas

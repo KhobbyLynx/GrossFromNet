@@ -19,7 +19,7 @@ describe('calculatePension', () => {
 // ** Test Taxable Income Function
 describe('calculateTaxableIncome', () => {
   test('calculates taxable income correctly', () => {
-    expect(calculateTaxableIncome(60000, 5000, 5500)).toBe(60000 - 5500 + 5000)
+    expect(calculateTaxableIncome(60000, 5000)).toBe(60000 + 5000)
   })
 })
 
@@ -34,7 +34,7 @@ describe('calculatePAYETax', () => {
 // ** Test Basic Salary Function
 describe('findBasicSalary', () => {
   test('finds basic salary correctly', () => {
-    expect(findBasicSalary(1000, 200)).toBeCloseTo(982.9)
+    expect(findBasicSalary(1000, 200)).toBeCloseTo(1037.15)
   })
 })
 
@@ -51,7 +51,7 @@ describe('calculateGrossSalary', () => {
     expect(result).toHaveProperty('netSalary')
     expect(result).toHaveProperty('desiredNetSalary', '1,000.00')
     expect(result).toHaveProperty('allowances', '200.00')
-    expect(result).toHaveProperty('basicSalary', '982.90')
+    expect(result).toHaveProperty('basicSalary', '1,037.15')
     expect(result).toHaveProperty('taxableIncome')
     expect(result).toHaveProperty('payeTax')
     expect(result).toHaveProperty('employeePension')
