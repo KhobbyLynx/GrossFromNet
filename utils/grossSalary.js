@@ -1,39 +1,39 @@
 // ** Utils
-import {
+const {
   calculatePension,
   calculateTaxableIncome,
   calculatePAYETax,
-  findBaseSalary,
-} from './taxUtils.js'
-import { formatNumber } from './utils.js'
+  findBasicSalary,
+} = require('./taxUtils.js')
+const { formatNumber } = require('./utils.js')
 
 // ** CALCULATE GROSS SALARY
-export const calculateGrossSalary = (desiredNetSalary, allowances) => {
-  let baseSalary = findBaseSalary(desiredNetSalary, allowances)
+const calculateGrossSalary = (desiredNetSalary, allowances) => {
+  let basicSalary = findBasicSalary(desiredNetSalary, allowances)
 
-  // ** If base Salary is defined
-  if (baseSalary) {
+  // ** If basic Salary is defined
+  if (basicSalary) {
     // ** Calculate Employee Pension
-    let employeePension = calculatePension(baseSalary)
+    let employeePension = calculatePension(basicSalary)
 
-    // ** Calcualte Taxable Income
+    // ** Calculate Taxable Income
     let taxableIncome = calculateTaxableIncome(
-      baseSalary,
+      basicSalary,
       allowances,
       employeePension
     )
 
-    // ** Calcualte Tax
+    // ** Calculate Tax
     let payeTax = calculatePAYETax(taxableIncome)
 
     // ** Calculate Gross Salary
     let grossSalary = formatNumber(
-      baseSalary + allowances + employeePension + payeTax
+      basicSalary + allowances + employeePension + payeTax
     )
 
-    // ** Calcuate Actual Net Salary Based on the Calculated Base Salary
+    // ** Calculate Actual Net Salary Based on the Calculated Basic Salary
     let netSalary = formatNumber(
-      baseSalary - employeePension + allowances - payeTax
+      basicSalary - employeePension + allowances - payeTax
     )
 
     return {
@@ -41,15 +41,19 @@ export const calculateGrossSalary = (desiredNetSalary, allowances) => {
       netSalary,
       desiredNetSalary: formatNumber(desiredNetSalary),
       allowances: formatNumber(allowances),
-      baseSalary: formatNumber(baseSalary),
+      basicSalary: formatNumber(basicSalary),
       taxableIncome: formatNumber(taxableIncome),
       payeTax: formatNumber(payeTax),
       employeePension: formatNumber(employeePension),
-      employerPension: formatNumber((baseSalary * 18) / 100),
+      employerPension: formatNumber((basicSalary * 18) / 100),
     }
 
-    // ** If base salary is undefined
+    // ** If basic salary is undefined
   } else {
-    console.log('Base Salary could not be calculated')
+    console.log('Basic Salary could not be calculated')
   }
+}
+
+module.exports = {
+  calculateGrossSalary,
 }
