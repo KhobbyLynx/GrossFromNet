@@ -103,7 +103,7 @@ const findBasicSalary = (netSalary, allowances) => {
     }
 
     // ** Adjust the basic salary based on the difference between calculated and provided net salary for another iteration
-    basicSalary += (netSalary - calculatedNetSalary) / 0.895
+    basicSalary += netSalary - calculatedNetSalary
   }
 
   throw new Error(

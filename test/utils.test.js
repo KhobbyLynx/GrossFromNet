@@ -49,7 +49,6 @@ describe('calculateGrossSalary', () => {
     // ** expected output properties
     expect(result).toHaveProperty('grossSalary')
     expect(result).toHaveProperty('netSalary')
-    expect(result).toHaveProperty('desiredNetSalary', '1,000.00')
     expect(result).toHaveProperty('allowances', '200.00')
     expect(result).toHaveProperty('basicSalary', '1,037.15')
     expect(result).toHaveProperty('taxableIncome')

@@ -33,18 +33,19 @@ const calculateGrossSalary = (desiredNetSalary, allowances) => {
     return {
       grossSalary,
       netSalary,
-      desiredNetSalary: formatNumber(desiredNetSalary),
       allowances: formatNumber(allowances),
       basicSalary: formatNumber(basicSalary),
       taxableIncome: formatNumber(taxableIncome),
       payeTax: formatNumber(payeTax),
       employeePension: formatNumber(employeePension),
-      employerPension: formatNumber((basicSalary * 18) / 100),
+      // ** Employer Total Pension rate is 18%
+      employerPension: formatNumber(taxableIncome * 0.18),
     }
 
     // ** If basic salary is undefined
   } else {
     console.log('Basic Salary could not be calculated')
+    throw new Error()
   }
 }
 
