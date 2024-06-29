@@ -1,11 +1,11 @@
 // ** CALCULATE EMPLOYEE PENSION
 // ** Since tier1 is 0 for employee pension it is not included
-export const calculatePension = (baseSalary) => {
+const calculatePension = (basicSalary) => {
   // ** Tier2 = 5.5%
-  const tier2 = (baseSalary * 5.5) / 100
+  const tier2 = (basicSalary * 5.5) / 100
 
   // ** Tier3 = 5%
-  const tier3 = (baseSalary * 5) / 100
+  const tier3 = (basicSalary * 5) / 100
 
   // ** Total Employess Pension
   const total = tier2 + tier3
@@ -14,17 +14,13 @@ export const calculatePension = (baseSalary) => {
 }
 
 // ** CALCULATE TAXABLE INCOME
-// ** Employee Pension is taken from the base Salary before allowances are added to be taxed
-export const calculateTaxableIncome = (
-  baseSalary,
-  allowances,
-  employeePension
-) => {
-  return baseSalary - employeePension + allowances
+// ** Employee Pension is taken from the basic Salary before allowances are added to be taxed
+const calculateTaxableIncome = (basicSalary, allowances, employeePension) => {
+  return basicSalary - employeePension + allowances
 }
 
 // ** CALCULATE PAYETAX
-export const calculatePAYETax = (taxableIncome) => {
+const calculatePAYETax = (taxableIncome) => {
   let tax = 0
 
   // ** For the first 490 tax rate = 0
@@ -73,9 +69,9 @@ export const calculatePAYETax = (taxableIncome) => {
   return tax
 }
 
-// ** FIND THE BASE SALARY
-export const findBaseSalary = (netSalary, allowances) => {
-  let baseSalary = 0
+// ** FIND THE BASIC SALARY
+const findBasicSalary = (netSalary, allowances) => {
+  let basicSalary = 0
 
   // ** Maximum number of iterations to prevent infinite loops
   const maxIterations = 1000
@@ -84,30 +80,38 @@ export const findBaseSalary = (netSalary, allowances) => {
   const epsilon = 0.001
 
   for (let i = 0; i < maxIterations; i++) {
-    // ** Taxable Income (TI)= Base Salary(B) - Employee Pension(P) + Allowances (A)
+    // ** Taxable Income (TI)= Basic Salary(B) - Employee Pension(P) + Allowances (A)
     // ** Tier 2 and Tier3 Employee Pension = 10.5%
     // ** Employee Pension(P) = 0.105 x B
     // ** TI = B - 0.105B + A
     // ** TI = B(1-0.105) + A
     // ** TI = 0.895B + A
-    let taxableIncome = 0.895 * baseSalary + allowances
+    let taxableIncome = 0.895 * basicSalary + allowances
 
     // ** PayeTax
     let tax = calculatePAYETax(taxableIncome)
 
     // ** Calculate Actual Net Salary
-    let calculatedNetSalary = 0.895 * baseSalary + allowances - tax
+    let calculatedNetSalary = 0.895 * basicSalary + allowances - tax
 
-    // ** Return the base salary when the calculated net salary is close enough to the provided net salary
+    // ** Return the basic salary when the calculated net salary is close enough to the provided net salary
     if (Math.abs(calculatedNetSalary - netSalary) < epsilon) {
-      return baseSalary
+      return Math.abs(basicSalary)
     }
 
-    // ** Adjust the base salary based on the difference between calculated and provided net salary for another iteration
-    baseSalary += (netSalary - calculatedNetSalary) / 0.895
+    // ** Adjust the basic salary based on the difference between calculated and provided net salary for another iteration
+    basicSalary += (netSalary - calculatedNetSalary) / 0.895
   }
 
   throw new Error(
-    'Base salary could not be determined within the iteration limit'
+    'Basic salary could not be determined within the iteration limit'
   )
+}
+
+// Exporting all functions as part of a module
+module.exports = {
+  calculatePension,
+  calculateTaxableIncome,
+  calculatePAYETax,
+  findBasicSalary,
 }

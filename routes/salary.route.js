@@ -1,8 +1,13 @@
-import express from 'express'
-import { calculateSalary } from '../controllers/salary.controller.js'
+// ** express import
+const express = require('express')
+
+// ** Controller
+const { calculateSalary } = require('../controllers/salary.controller.js')
 
 const router = express.Router()
 
+// ** End Point /api/salary/calculate
+// ** POST */
 router.post('/calculate', calculateSalary)
 
-export default router
+module.exports = router

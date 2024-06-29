@@ -1,6 +1,7 @@
-import { calculateGrossSalary } from '../utils/grossSalary.js'
+// ** Utils
+const { calculateGrossSalary } = require('../utils/grossSalary.js')
 
-export const calculateSalary = async (req, res) => {
+const calculateSalary = async (req, res) => {
   try {
     const { desiredNetSalary, allowances } = req.body
 
@@ -12,4 +13,8 @@ export const calculateSalary = async (req, res) => {
     console.error('Error calculating gross salary:', error)
     res.status(500).json({ error: `Error Calculating gross salary - ${error}` })
   }
+}
+
+module.exports = {
+  calculateSalary,
 }

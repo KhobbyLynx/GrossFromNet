@@ -1,11 +1,11 @@
 // ** express import
-import express from 'express'
+const express = require('express')
 
 // ** Port
 const PORT = process.env.PORT || 5000
 
 // ** Salary Route
-import salaryRoute from './routes/salary.route.js'
+const salaryRoute = require('./routes/salary.route.js')
 
 // ** Initialize app
 const app = express()
@@ -14,6 +14,7 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 
 // ** /api/salary route
+
 app.use('/api/salary', salaryRoute)
 
 // ** test get request

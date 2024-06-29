@@ -1,5 +1,5 @@
 // ** FORMAT NUMBER
-export const formatNumber = (num) => {
+const formatNumber = (num) => {
   // ** Convert to number
   num = parseFloat(num)
 
@@ -10,4 +10,8 @@ export const formatNumber = (num) => {
 
   // ** Format the number to two decimal places and add commas
   return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+module.exports = {
+  formatNumber,
 }
