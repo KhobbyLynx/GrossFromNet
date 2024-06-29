@@ -14,7 +14,6 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 
 // ** /api/salary route
-
 app.use('/api/salary', salaryRoute)
 
 // ** test get request
