@@ -2,6 +2,8 @@
 
 This project is a REST API developed with Node.js and Express to calculate gross salary and other details based on the input net salary and allowances. The calculation includes a 10.5% employer pension contribution and 18% employee pension in tiers and applies a graduated tax rate from the Ghana Revenue Authority (GRA) 2024.
 
+![Project Question](https://res.cloudinary.com/khobbylynx/image/upload/v1719766620/justclick/GRA-Tax_BackEnd-2024_dijb4x.jpg)
+
 ## Features
 
 - Receives net salary and allowances as input.
